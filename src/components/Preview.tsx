@@ -204,6 +204,8 @@ export function Preview({
   }
 
   const isSplit = compare === 'split'
+  // Only actually split once there is a vector to split against.
+  const splitting = isSplit && resultUrl !== null
 
   return (
     <div className="preview" ref={previewRef}>
@@ -233,7 +235,12 @@ export function Preview({
             src={origUrl}
             alt=""
             draggable={false}
-            style={{ opacity: compare === 'result' ? 0 : 1 }}
+            style={{
+              opacity: compare === 'result' ? 0 : 1,
+              // The traced SVG keeps its transparency, so the original has to be
+              // clipped away on the vector side or it shows through the shapes.
+              clipPath: splitting ? `inset(0 0 0 ${split}%)` : 'none',
+            }}
           />
           {resultUrl && (
             <img
