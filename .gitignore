@@ -10,6 +10,9 @@ node_modules/
 /build
 /dist
 
+# TypeScript incremental build state
+*.tsbuildinfo
+
 # Misc
 .DS_Store
 .env.local
